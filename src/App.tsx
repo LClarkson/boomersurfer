@@ -1,35 +1,68 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState, useEffect } from 'react'
+import './styles/App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
 
+  
+  const [count, setCount] = useState(0)
+  const [time, setTime] = useState(new Date().toLocaleTimeString());
+
+/**************************************** TIMEBAR ***************************************/
+
+  const getNextTime = (offsetMinutes: number): string => {
+    const currentDate = new Date();
+    currentDate.setMinutes(Math.ceil(currentDate.getMinutes() / 30) * 30 + offsetMinutes);
+    return currentDate.toLocaleString("en-US", { hour: 'numeric', minute: 'numeric' });
+  }
+  
+  const next30: string = getNextTime(0);
+  const next60: string = getNextTime(30);
+  const next90: string = getNextTime(60);
+
+  // update current time display seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTime(new Date().toLocaleTimeString());
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+
+  
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <div id="viewPort">
+        <div className="portWindow" id="channelInfo">
+          <p>Channel Info</p>
+        </div>
+        <div className="portWindow" id="ytPlayer">
+          <p>Video Preview</p>
+        </div>
       </div>
-      <h1>Vite + React</h1>
+
+      <div id="timebar">
+        <div className="timeDivider">
+          <p>{time}</p>
+        </div>
+        <div className="timeDivider">
+          <p>{next30}</p>
+        </div>
+        <div className="timeDivider">
+          <p>{next60}</p>
+        </div>
+        <div className="timeDivider">
+          <p>{next90}</p>
+        </div>
+      </div>
+
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
         </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
-  )
+  );
 }
 
 export default App
