@@ -1,63 +1,48 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import './styles/App.css'
+import YoutubePlayer from './components/YoutubePlayer.tsx';
+import TimeBar from './components/TimeBar.tsx';
+import ChannelInfo from './components/ChannelInfo.tsx';
+
 
 function App() {
 
+/************************************** STATE INIT **************************************/
   
   const [count, setCount] = useState(0)
-  const [time, setTime] = useState(new Date().toLocaleTimeString());
+  const [videoID, setVideoID] = useState('l7rce6IQDWs')
 
-/**************************************** TIMEBAR ***************************************/
+/************************************* CHANGE CHANNEL ***********************************/
 
-  const getNextTime = (offsetMinutes: number): string => {
-    const currentDate = new Date();
-    currentDate.setMinutes(Math.ceil(currentDate.getMinutes() / 30) * 30 + offsetMinutes);
-    return currentDate.toLocaleString("en-US", { hour: 'numeric', minute: 'numeric' });
-  }
-  
-  const next30: string = getNextTime(0);
-  const next60: string = getNextTime(30);
-  const next90: string = getNextTime(60);
+const videos = [
+  'l7rce6IQDWs',
+  '8v0QwgWPqPU',
+  'he-7vs0BkLE',
+  'icwYkOun_Po',
+]
 
-  // update current time display seconds
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setTime(new Date().toLocaleTimeString());
-    }, 1000);
+const changeChannel = () => {
+  const randomVideo = Math.floor(Math.random() * videos.length);
+  setVideoID(videos[randomVideo]);
+}
 
-    return () => clearInterval(interval);
-  }, []);
-
-
+/****************************************** HTML ****************************************/
   
   return (
     <>
       <div id="viewPort">
-        <div className="portWindow" id="channelInfo">
-          <p>Channel Info</p>
-        </div>
-        <div className="portWindow" id="ytPlayer">
-          <p>Video Preview</p>
-        </div>
+        <ChannelInfo />
+        <YoutubePlayer videoID={videoID} videoTime={50} />
       </div>
 
-      <div id="timebar">
-        <div className="timeDivider">
-          <p>{time}</p>
-        </div>
-        <div className="timeDivider">
-          <p>{next30}</p>
-        </div>
-        <div className="timeDivider">
-          <p>{next60}</p>
-        </div>
-        <div className="timeDivider">
-          <p>{next90}</p>
-        </div>
-      </div>
-
+      <TimeBar />
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
+        <button
+          onClick={() => {
+            setCount((count) => count + 1);
+            changeChannel();
+          }}
+        >
           count is {count}
         </button>
       </div>
