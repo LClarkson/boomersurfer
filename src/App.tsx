@@ -9,7 +9,6 @@ function App() {
 
 /************************************** STATE INIT **************************************/
   
-  const [count, setCount] = useState(0)
   const [videoID, setVideoID] = useState('l7rce6IQDWs')
 
 /************************************* CHANGE CHANNEL ***********************************/
@@ -34,17 +33,9 @@ const changeChannel = () => {
         <ChannelInfo />
         <YoutubePlayer videoID={videoID} videoTime={50} />
       </div>
-
       <TimeBar />
       <div className="card">
-        <button
-          onClick={() => {
-            setCount((count) => count + 1);
-            changeChannel();
-          }}
-        >
-          count is {count}
-        </button>
+        <button onClick={ () => {changeChannel();} }></button>
       </div>
     </>
   );

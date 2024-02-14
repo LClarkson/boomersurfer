@@ -5,7 +5,7 @@ import yargs from "yargs";
 
 /****************************************** API INIT ******************************************/
 
-const API_KEY = "AIzaSyBcApwCH5J5b0ooYEm1fWla7MAmwgu9QcM";
+const API_KEY = process.env.YT_API_KEY;
 
 const youtube = google.youtube({
   version: "v3",
@@ -23,6 +23,7 @@ async function getPlaylists(channelID) {
     });
 
     const playlists = response.data.items;
+    console.log(response.data);
 
     playlists.forEach((playlist) => {
       console.log(`Playlist Title: ${playlist.snippet.title}`);
