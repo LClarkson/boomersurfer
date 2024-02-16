@@ -8,6 +8,7 @@ interface YoutubePlayerProps {
 }
 
 function YoutubePlayer({ videoID }: YoutubePlayerProps) {
+  
   const opts = {
     playerVars: {
       autoplay: 1,

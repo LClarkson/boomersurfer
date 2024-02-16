@@ -1,0 +1,60 @@
+
+  .remote-control {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    max-width: 400px;
+  }
+  
+  button {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    font-size: 16px;
+    text-align: center;
+    background-color: #4285f4;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .navigation-cluster {
+    grid-column: span 2;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+  
+  .separator {
+    margin-top: 50px;
+  }
+  .navigation-button {
+    background-color: #34a853;
+  }
+  
+  .up {
+    grid-column: 2;
+    grid-row: 1;
+  }
+  
+  .down {
+    grid-column: 2;
+    grid-row: 4;
+  }
+  
+  .left {
+    grid-column: 1;
+    grid-row: 2 / span 2;
+  }
+  
+  .right {
+    grid-column: 3;
+    grid-row: 2 / span 2;
+  }
+  
+  .enter {
+    grid-column: 2;
+    grid-row: 2 / span 2;
+  }
+  

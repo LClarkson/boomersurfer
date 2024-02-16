@@ -1,8 +1,9 @@
-import { useState } from 'react'
-import './styles/App.css'
+import { useState } from 'react';
+import './styles/App.css';
 import YoutubePlayer from './components/YoutubePlayer.tsx';
 import TimeBar from './components/TimeBar.tsx';
 import ChannelInfo from './components/ChannelInfo.tsx';
+import Remote from './components/remote.tsx';
 
 
 function App() {
@@ -34,9 +35,7 @@ const changeChannel = () => {
         <YoutubePlayer videoID={videoID} videoTime={50} />
       </div>
       <TimeBar />
-      <div className="card">
-        <button onClick={ () => {changeChannel();} }></button>
-      </div>
+      <Remote changeChannel={changeChannel} />
     </>
   );
 }
