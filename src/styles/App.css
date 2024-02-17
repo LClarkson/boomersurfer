@@ -57,6 +57,7 @@
 }
 
 @media only screen and (max-width: 600px) {
+
   #remote {
     display: block;
   }
@@ -64,4 +65,9 @@
   #viewPort {
     display: none;
   }
+
+  #timeBar {
+    display: none;
+  }
+  
 }

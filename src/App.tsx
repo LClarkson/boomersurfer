@@ -3,7 +3,7 @@ import './styles/App.css';
 import YoutubePlayer from './components/YoutubePlayer.tsx';
 import TimeBar from './components/TimeBar.tsx';
 import ChannelInfo from './components/ChannelInfo.tsx';
-import Remote from './components/remote.tsx';
+import Remote from './components/Remote.tsx';
 
 
 function App() {
@@ -15,7 +15,7 @@ function App() {
 
   const videos = ["l7rce6IQDWs", "8v0QwgWPqPU", "he-7vs0BkLE", "icwYkOun_Po"];
 
-  const changeChannel = () => {
+  const changeChannel = (): void => {
     const randomVideo = Math.floor(Math.random() * videos.length);
     setVideoID(videos[randomVideo]);
   };
@@ -28,7 +28,9 @@ function App() {
         <ChannelInfo />
         <YoutubePlayer videoID={videoID} videoTime={50} />
       </div>
-      <TimeBar />
+      <div id="timeBar">
+        <TimeBar />
+      </div>
       <div id="remote">
         <Remote changeChannel={changeChannel} />
       </div>

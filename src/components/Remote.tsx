@@ -7,10 +7,12 @@ interface RemoteProps {
   const Remote: React.FC<RemoteProps> = ({ changeChannel }) => {
   return (
     <div className="remote-control">
-      <button className="volume-up">VOLUME UP</button>
-      <button className="channel-up" onClick={changeChannel}>CHANNEL UP</button>
-      <button className="volume-down">VOLUME DOWN</button>
-      <button className="channel-down">CHANNEL DOWN</button>
+      <div className="controls-cluster">
+        <button className="controls">VOLUME UP</button>
+        <button className="controls" onClick={changeChannel}>CHANNEL UP</button>
+        <button className="controls">VOLUME DOWN</button>
+        <button className="controls">CHANNEL DOWN</button>
+      </div>   
       <div className="separator"></div>
       <div className="navigation-cluster">
         <button className="navigation-button up">UP</button>
