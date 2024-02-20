@@ -4,6 +4,7 @@ import YoutubePlayer from './components/YoutubePlayer.tsx';
 import TimeBar from './components/TimeBar.tsx';
 import ChannelInfo from './components/ChannelInfo.tsx';
 import Remote from './components/Remote.tsx';
+import Guide from './components/Guide.tsx';
 
 
 function App() {
@@ -15,7 +16,13 @@ function App() {
   /************************************* CHANGE CHANNEL ***********************************/
 
   interface Video {
-   video: string;
+   videoID: string;
+   channelID: string;
+   playlistID: string;
+   videoURL: string;
+   videoTitle: string;
+   videoDescription: string;
+   videoUploadDate: string;
   }
 
   useEffect(() => {
@@ -41,8 +48,9 @@ function App() {
 
   const changeChannel = (): void => {
     const randomVideoIndex = Math.floor(Math.random() * videos.length);
-    const randomVideo = videos[randomVideoIndex];
-    setVideoID(`${randomVideo}`);
+    const randomVideo = videos[randomVideoIndex].videoID;
+    console.log(randomVideo);
+    setVideoID(randomVideo);
   };
 
   /****************************************** HTML ****************************************/
@@ -59,6 +67,7 @@ function App() {
       <div id="remote">
         <Remote changeChannel={changeChannel} />
       </div>
+      <Guide />
     </>
   );
 }
