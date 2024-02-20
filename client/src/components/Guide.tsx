@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
-import '../styles/Guide.css';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
+import { useQuery } from '@tanstack/react-query'
+import '../styles/Guide.css'
 
 const Guide = () => {
-
-  const [shows, setShows] = useState<Video[]>([]);
   interface Video {
     videoID: string;
     channelID: string;
@@ -12,60 +12,28 @@ const Guide = () => {
     videoTitle: string;
     videoDescription: string;
     videoUploadDate: string;
-   }
+  }
 
-  useEffect(() => {
-    const fetchVideos = async () => {
-      try {
-        const response = await fetch("/watch");
-        if (!response.ok) {
-          throw new Error("Failed to fetch videos");
-        }
-        const videosData: Video[] = await response.json();
-        setShows(videosData);
-        console.log(videosData);
-              
-      } catch (error) {
-        if (error instanceof Error) {
-          console.error("Error fetching videos:", (error as Error).message);
-        } else {
-          console.error("Unexpected error:", error);
-        }
-      }
-    };
+  const { isPending, error, data } = useQuery({
+    queryKey: ["shows"],
+    queryFn: () => fetch("/watch").then((res) => res.json()),
+  });
 
-    fetchVideos();
-  }, []);
+  if (isPending) return "Loading...";
+  if (error) return "An error has occurred: " + error.message;
 
-    return (
-      <>
-        <div className="ChannelScroller">
-          <div className="Show"></div>
-          <div className="Show"></div>
-          <div className="Show"></div>
-          <div className="Show"></div>
-        </div>
-        <div className="ChannelScroller">
-          <div className="Show"></div>
-          <div className="Show"></div>
-          <div className="Show"></div>
-          <div className="Show"></div>
-        </div>
-        <div className="ChannelScroller">
-          <div className="Show"></div>
-          <div className="Show"></div>
-          <div className="Show"></div>
-          <div className="Show"></div>
-        </div>
-        <div className="ChannelScroller">
-          <div className="Show"></div>
-          <div className="Show"></div>
-          <div className="Show"></div>
-          <div className="Show"></div>
-        </div>
-      </>
-    );
+  const shows = data.map((show: Video) => (
+    <div key={show.videoID} className="Show">
+      <h3>{show.videoTitle}</h3>
+      <p>{show.videoUploadDate}</p>
+    </div>
+  ));
 
-}
+  return (
+    <>
+      <div className="ChannelScroller">{shows}</div>
+    </>
+  );
+};
 
 export default Guide;
